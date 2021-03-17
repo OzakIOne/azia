@@ -9,10 +9,12 @@
     "open": "^8.0.2"
   },
   "scripts": {
-    "start": "npm run build ; npm run exe",
-    "build": "esbuild index.js --minify --outfile=bundle/min.js",
-    "clean": "rmdir /S /Q bin ; rmdir /S /Q bundle",
-    "exe": "pkg . --targets node14-win-x64 --out-path bin/"
+    "start": "npm run windowsbin",
+    "esbuild": "esbuild index.js --minify --outfile=bundle/min.js",
+    "clean": "rm -rf bin/ bundle/",
+    "windowsbin": "npm run esbuild && pkg . --targets latest-win-x64 --out-path bin/windows",
+    "macosbin": "npm run esbuild && pkg . --targets latest-macos-x64 --out-path bin/macos",
+    "linuxbin": "npm run esbuild && pkg . --targets latest-linux-x64 --out-path bin/linux"
   },
   "bin": "bundle/min.js",
   "author": "ozaki",
