@@ -1,0 +1,20 @@
+{
+  "name": "azia",
+  "version": "1.0.0",
+  "description": "Small script that open a youtube video every X minutes",
+  "main": "index.js",
+  "dependencies": {
+    "esbuild": "^0.9.3",
+    "inquirer": "^8.0.0",
+    "open": "^8.0.2"
+  },
+  "scripts": {
+    "start": "npm run build ; npm run exe",
+    "build": "esbuild index.js --minify --outfile=bundle/min.js",
+    "clean": "rmdir /S /Q bin ; rmdir /S /Q bundle",
+    "exe": "pkg . --targets node14-win-x64 --out-path bin/"
+  },
+  "bin": "bundle/min.js",
+  "author": "ozaki",
+  "license": "MIT"
+}
