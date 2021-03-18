@@ -13,8 +13,6 @@ npm i
 ### For windows
 
 ```bash
-npm start
-# or
 npm run windowsbin
 ```
 
@@ -31,6 +29,8 @@ npm run macosbin
 ```
 
 ## How to run
+
+If you have node installed just `npm start`
 
 Double click `azia.exe` file in the `bin/windows/` folder
 

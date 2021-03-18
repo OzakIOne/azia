@@ -9,7 +9,7 @@
     "open": "^8.0.2"
   },
   "scripts": {
-    "start": "npm run windowsbin",
+    "start": "node index.js",
     "esbuild": "esbuild index.js --minify --outfile=bundle/min.js",
     "clean": "rm -rf bin/ bundle/",
     "windowsbin": "npm run esbuild && pkg . --targets latest-win-x64 --out-path bin/windows",
