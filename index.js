@@ -50,11 +50,8 @@ const startNeat = (url, interval) => {
   }, interval * 60000);
 };
 
-inquirer.prompt(questions).then(({ url, delay, interval }) => {
-  if (delay === 0) startNeat(url, interval);
-  else if (delay !== 0) {
-    setTimeout(() => {
-      startNeat(url, interval);
-    }, delay * 60000);
-  } else console.log('There was a problem');
-});
+inquirer.prompt(questions).then(({ url, delay, interval }) =>
+  setTimeout(() => {
+    startNeat(url, interval);
+  }, delay * 60000),
+);
