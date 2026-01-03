@@ -1,55 +1,76 @@
-import { input } from '@inquirer/prompts';
-import open from 'open';
+import { input, select, number } from "@inquirer/prompts";
+import open from "open";
 
-const isValidNumber = (val: string): boolean | string => {
-  const parsed = parseFloat(val);
-  const isValid = Number.isInteger(parsed);
-  if (isValid && parsed >= 0) return true;
-  return 'Please enter a valid number (e.g., 3)';
-};
+const startNeat = async (source: string, interval: number) => {
+  const play = async () => {
+    try {
+      await open(source);
+    } catch (error) {
+      console.error("Error opening source:", error);
+    }
+  };
 
-const startNeat = (url: string, interval: number) => {
-  open(url);
-  setInterval(() => {
-    open(url);
+  await play();
+
+  setInterval(async () => {
+    await play();
   }, interval * 60000);
 };
 
 async function run() {
-  const url = await input({
-    message: 'Youtube video URL',
-    validate: (value) => {
-      const isYoutubeURL = value.match(
-        /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/,
-      );
-      if (isYoutubeURL) return true;
-      return 'Please enter a valid Youtube URL';
-    },
-    default: 'https://youtu.be/3SDBTVcBUVs?t=124',
+  const mode = await select({
+    message: "Select notification mode:",
+    choices: [
+      { name: "YouTube Video (Opens Browser)", value: "youtube" as const },
+      { name: "Local MP3 File (Opens Default Player)", value: "mp3" as const },
+    ],
   });
 
-  const intervalInput = await input({
-    message: 'Interval in minutes for the video to be opened',
-    validate: isValidNumber,
-    default: '30',
+  let source = "";
+  if (mode === "youtube") {
+    source = await input({
+      message: "YouTube video URL",
+      validate: (value) => {
+        const isYoutubeURL = value.match(/^(https?:\/\/)?(?:www\.)?(youtube\.com|youtu\.be)\/.+$/);
+        if (isYoutubeURL) return true;
+        return "Please enter a valid YouTube URL";
+      },
+      default: "https://youtu.be/3SDBTVcBUVs?t=124",
+    });
+  } else {
+    source = await input({
+      message: "Path to MP3 file",
+      default: "workout.mp3",
+      validate: (value) => {
+        if (value.toLowerCase().endsWith(".mp3")) return true;
+        return "Please enter a valid .mp3 file path";
+      },
+    });
+  }
+
+  const intervalInput = await number({
+    message: "Interval in minutes",
+    default: 30,
+    required: true,
   });
 
-  const delayInput = await input({
-    message: 'Delay in minutes for the video to be opened',
-    validate: isValidNumber,
-    default: '0',
+  const delayInput = await number({
+    message: "Delay in minutes (before first run)",
+    default: 0,
+    required: true,
   });
 
-  const interval = Number(intervalInput);
-  const delay = Number(delayInput);
+  console.log(
+    `\n🚀 Azia started! Mode: ${mode}, Interval: ${intervalInput}m, Delay: ${delayInput}m`,
+  );
 
   setTimeout(() => {
-    startNeat(url, interval);
-  }, delay * 60000);
+    startNeat(source, intervalInput);
+  }, delayInput * 60000);
 }
 
 run().catch((error) => {
-  if (error.name !== 'ExitPromptError') {
+  if (error.name !== "ExitPromptError") {
     console.error(error);
   }
 });
