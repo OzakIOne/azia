@@ -9,9 +9,9 @@
   "scripts": {
     "start": "bun run index.ts",
     "build": "bun build ./index.ts --outdir ./dist --target bun",
-    "compile:windows": "bun build --compile --minify --sourcemap --bytecode --target=bun-windows-x64 ./index.ts --outfile bin/windows/azia",
-    "compile:linux": "bun build --compile --minify --sourcemap --bytecode --target=bun-linux-x64 ./index.ts --outfile bin/linux/azia",
-    "compile:macos": "bun build --compile --minify --sourcemap --bytecode --target=bun-darwin-arm64 ./index.ts --outfile bin/macos/azia",
+    "compile:windows": "bun build --compile --minify --sourcemap --bytecode --target=bun-windows-x64 ./index.ts --outfile bin/windows/azia-windows-x64",
+    "compile:linux": "bun build --compile --minify --sourcemap --bytecode --target=bun-linux-x64 ./index.ts --outfile bin/linux/azia-linux-x64",
+    "compile:macos": "bun build --compile --minify --sourcemap --bytecode --target=bun-darwin-arm64 ./index.ts --outfile bin/macos/azia-darwin-arm64",
     "clean": "rm -rf dist/ bin/ azia"
   },
   "dependencies": {
