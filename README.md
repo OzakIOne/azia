@@ -2,39 +2,21 @@
 
 Small script that open a youtube video every X minutes for your daily workout
 
-## How to build
-
-```bash
-git clone https://github.com/OzakIOne/azia
-cd azia
-npm i
-```
-
-### For windows
-
-```bash
-npm run windowsbin
-```
-
-### For linux
-
-```bash
-npm run linuxbin
-```
-
-### For macos
-
-```bash
-npm run macosbin
-```
-
 ## How to run
 
-If you have node installed just `npm start`
+### With Bun (recommended)
 
-Double click `azia.exe` file in the `bin/windows/` folder
+```bash
+bun install
+bun start
+```
 
-For linux and mac just run `./bin/linux/azia` or `./bin/macos/azia`
+### Compile to executable
+
+```bash
+bun run compile
+./azia
+```
 
 ## How to use
 
